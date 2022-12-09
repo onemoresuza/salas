@@ -3,35 +3,59 @@ using api_base.Models;
 
 namespace api_base.Utils
 {
-    public class Response<T> where T : Entity
+    public class Response<E, D>
+    where E : Entity
+    where D : Dto<E>
     {
         public StatusCode Code { get; init; }
         public string Message { get; init; }
-        public Dto<T>? Dto { get; init; }
+        public D[]? Dtos { get; init; }
 
-        public Response(StatusCode code, string message, Dto<T>? dto = null)
+        public Response(StatusCode code, string message, D dto)
         {
             Code = code;
             Message = message;
-            Dto = dto;
+            Dtos = new D[] { dto };
         }
 
-        public static Response<T> Success(string? message, Dto<T>? dto = null)
+        public Response(StatusCode code, string message, D[]? dtos = null)
         {
-            return new Response<T>(
-                StatusCode.Ok
-                , message == null ? ResponseMessage.Success : message
-                , dto
-            );
+            Code = code;
+            Message = message;
+            Dtos = dtos ?? Array.Empty<D>();
         }
 
-        public static Response<T> InternalError(string? message, Dto<T>? dto = null)
+        public static Response<E, D> Success(string? message = null)
         {
-            return new Response<T>(
-                StatusCode.InternalServerError
-                , message == null ? ResponseMessage.InternalError : message
-                , dto
-            );
+            return new Response<E, D>(StatusCode.NoContent, message ?? ResponseMessage.Success);
+        }
+        public static Response<E, D> Success(D[] dtos, string? message = null)
+        {
+            return new Response<E, D>(StatusCode.Ok, message ?? ResponseMessage.Success, dtos);
+        }
+        public static Response<E, D> Success(D dto, string? message = null)
+        {
+            return new Response<E, D>(StatusCode.Ok, message ?? ResponseMessage.Success, dto);
+        }
+
+        public static Response<E, D> Deleted()
+        {
+            return new Response<E, D>(StatusCode.NoContent, ResponseMessage.Deleted);
+        }
+
+        public static Response<E, D> Created()
+        {
+            return new Response<E, D>(StatusCode.Created, ResponseMessage.Created);
+        }
+
+        public static Response<E, D> InternalError(string? message = null)
+        {
+            return new Response<E, D>(StatusCode.InternalServerError, message ?? ResponseMessage.InternalServerError);
+        }
+
+        public static Response<E, D> NotFound(string? message = null)
+        {
+            return new Response<E, D>(StatusCode.NotFound, message ?? ResponseMessage.NotFound);
         }
     }
 }

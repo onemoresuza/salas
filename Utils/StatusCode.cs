@@ -8,11 +8,11 @@ namespace api_base.Utils
         #region 2xx success
         Ok = 200,
         Created = 201,
+        NoContent = 204,
         #endregion
 
         #region 3xx redirection
-        NoContent = 204,
-        Found = 302,
+        Found = 302, // Previously “Moved temporarily”
         NotModified = 304,
         #endregion
 
