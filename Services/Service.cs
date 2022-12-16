@@ -70,5 +70,10 @@ namespace api_base.Services
         {
             await repository.SaveChangesAsync();
         }
+
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await repository.ExistsAsync(id);
+        }
     }
 }

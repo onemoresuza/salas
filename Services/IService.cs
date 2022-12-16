@@ -18,5 +18,6 @@ namespace api_base.Services
         void Delete(D dto);
         void Delete(IEnumerable<D> dtos);
         Task SaveChangesAsync();
+        Task<bool> ExistsAsync(int id);
     }
 }

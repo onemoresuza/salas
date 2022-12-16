@@ -13,5 +13,6 @@ namespace api_base.Repositories
         void Delete(T entity);
         void Delete(IEnumerable<T> entities);
         Task SaveChangesAsync();
+        Task<bool> ExistsAsync(int id);
     }
 }

@@ -23,6 +23,11 @@ namespace api_base.Repositories
             db.Set<T>().RemoveRange(entities);
         }
 
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await db.Set<T>().AsNoTracking().AnyAsync(t => t.Id == id);
+        }
+
         public async Task<T?> GetAsync(int id)
         {
             return await db.Set<T>().AsNoTracking().Where(t => t.Id == id).SingleOrDefaultAsync();
