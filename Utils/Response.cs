@@ -9,20 +9,20 @@ namespace api_base.Utils
     {
         public StatusCode Code { get; init; }
         public string Message { get; init; }
-        public D[]? Dtos { get; init; }
+        public D[]? Result { get; init; }
 
         public Response(StatusCode code, string message, D dto)
         {
             Code = code;
             Message = message;
-            Dtos = new D[] { dto };
+            Result = new D[] { dto };
         }
 
         public Response(StatusCode code, string message, D[]? dtos = null)
         {
             Code = code;
             Message = message;
-            Dtos = dtos ?? Array.Empty<D>();
+            Result = dtos ?? Array.Empty<D>();
         }
 
         public static Response<E, D> Success(string? message = null)
@@ -56,6 +56,11 @@ namespace api_base.Utils
         public static Response<E, D> NotFound(string? message = null)
         {
             return new Response<E, D>(StatusCode.NotFound, message ?? ResponseMessage.NotFound);
+        }
+
+        public static Response<E, D> BadRequest(string? message = null)
+        {
+            return new Response<E, D>(StatusCode.BadRequest, message ?? ResponseMessage.BadRequest);
         }
     }
 }

@@ -2,6 +2,7 @@ using api_base.Data.Dtos;
 using api_base.Handlers;
 using api_base.Models;
 using api_base.Utils;
+using api_base.Utils.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_base.Controllers
@@ -32,40 +33,40 @@ namespace api_base.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<R>> Get(int id)
+        public virtual async Task<ActionResult<R>> Get(int id)
         {
             var response = await readHandler.HandleAsync(id);
-            return response == null ? NotFound() : Ok(response);
+            return Result<E, D>.ToActionResult<Response<E, D>>(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<R>> Get()
+        public virtual async Task<ActionResult<R>> Get()
         {
             var response = await readHandler.HandleAsync();
-            return Ok(response);
+            return Result<E, D>.ToActionResult<Response<E, D>>(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult<R>> Insert([FromBody] I dto)
+        public virtual async Task<ActionResult<R>> Insert([FromBody] I dto)
         {
             var response = await createHandler.HandleAsync(dto);
-            return Ok(response);
+            return Result<E, D>.ToActionResult<Response<E, D>>(response);
         }
 
         [HttpPut]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<R>> Update([FromBody] U dto)
+        public virtual async Task<ActionResult<R>> Update([FromBody] U dto)
         {
             var response = await updateHandler.HandleAsync(dto);
-            return Ok(response);
+            return Result<E, D>.ToActionResult<Response<E, D>>(response);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<R>> Delete(int id)
+        public virtual async Task<ActionResult<R>> Delete(int id)
         {
             var response = await deleteHandler.HandleAsync(id);
-            return Ok(response);
+            return Result<E, D>.ToActionResult<Response<E, D>>(response);
         }
     }
 }

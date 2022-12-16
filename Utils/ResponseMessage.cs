@@ -8,5 +8,6 @@ namespace api_base.Utils
         public const string Created = "Created successfully.";
         public const string Deleted = "Deleted successfully.";
         public const string Updated = "Updated successfully.";
+        public const string BadRequest = "The request could not be performed.";
     }
 }
