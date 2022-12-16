@@ -19,7 +19,7 @@ namespace api_base.Handlers
             this.service = service;
         }
 
-        public async Task<Response<E, D>> HandleAsync(int id)
+        public virtual async Task<Response<E, D>> HandleAsync(int id)
         {
             var dto = await service.ReadAsync(id);
             if (dto is null)
@@ -30,7 +30,7 @@ namespace api_base.Handlers
             return Response<E, D>.Success(dto: dto);
         }
 
-        public async Task<Response<E, D>> HandleAsync()
+        public virtual async Task<Response<E, D>> HandleAsync()
         {
             var dtos = await service.ReadAsync();
             return Response<E, D>.Success(dtos: dtos);

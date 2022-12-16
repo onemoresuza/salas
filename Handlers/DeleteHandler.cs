@@ -19,7 +19,7 @@ namespace api_base.Handlers
             this.service = service;
         }
 
-        public async Task<Response<E, D>> HandleAsync(int id)
+        public virtual async Task<Response<E, D>> HandleAsync(int id)
         {
             var model = await service.ReadAsync(id);
 

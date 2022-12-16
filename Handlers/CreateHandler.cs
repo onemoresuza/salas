@@ -19,7 +19,7 @@ namespace api_base.Handlers
             this.service = service;
         }
 
-        public async Task<Response<E, D>> HandleAsync(I dto)
+        public virtual async Task<Response<E, D>> HandleAsync(I dto)
         {
             await service.CreateAsync(dto);
             await service.SaveChangesAsync();

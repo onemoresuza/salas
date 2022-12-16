@@ -18,60 +18,60 @@ namespace api_base.Services
             this.repository = repository;
         }
 
-        public void Delete(D dto)
+        public virtual void Delete(D dto)
         {
             var entity = Mapper.Map(dto).ToANew<E>();
             repository.Delete(entity);
         }
 
-        public void Delete(IEnumerable<D> dtos)
+        public virtual void Delete(IEnumerable<D> dtos)
         {
             var entities = Mapper.Map(dtos).ToANew<IEnumerable<E>>();
             repository.Delete(entities);
         }
 
-        public async Task<D?> ReadAsync(int id)
+        public virtual async Task<D?> ReadAsync(int id)
         {
             var entity = await repository.GetAsync(id);
             return Mapper.Map(entity).ToANew<D>();
         }
 
-        public async Task<D[]> ReadAsync()
+        public virtual async Task<D[]> ReadAsync()
         {
             var entities = await repository.GetAsync();
             return Mapper.Map(entities).ToANew<D[]>();
         }
 
-        public async Task CreateAsync(I insertDto)
+        public virtual async Task CreateAsync(I insertDto)
         {
             var entity = Mapper.Map(insertDto).ToANew<E>();
             await repository.InsertAsync(entity);
         }
 
-        public async Task CreateAsync(IEnumerable<I> insertDtos)
+        public virtual async Task CreateAsync(IEnumerable<I> insertDtos)
         {
             var entities = Mapper.Map(insertDtos).ToANew<IEnumerable<E>>();
             await repository.InsertAsync(entities);
         }
 
-        public void Update(U updateDto)
+        public virtual void Update(U updateDto)
         {
             var entity = Mapper.Map(updateDto).ToANew<E>();
             repository.Update(entity);
         }
 
-        public void Update(IEnumerable<U> updateDtos)
+        public virtual void Update(IEnumerable<U> updateDtos)
         {
             var entities = Mapper.Map(updateDtos).ToANew<IEnumerable<E>>();
             repository.Update(entities);
         }
 
-        public async Task SaveChangesAsync()
+        public virtual async Task SaveChangesAsync()
         {
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsAsync(int id)
+        public virtual async Task<bool> ExistsAsync(int id)
         {
             return await repository.ExistsAsync(id);
         }

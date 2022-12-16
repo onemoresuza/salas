@@ -19,7 +19,7 @@ namespace api_base.Handlers
             this.service = service;
         }
 
-        public async Task<Response<E, D>> HandleAsync(U dto)
+        public virtual async Task<Response<E, D>> HandleAsync(U dto)
         {
             var exists = await service.ExistsAsync(dto.Id);
             if (!exists)
