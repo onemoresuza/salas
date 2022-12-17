@@ -22,7 +22,7 @@ namespace api_base.Handlers
         public virtual async Task<Response<E, D>> HandleAsync(int id)
         {
             var dto = await service.ReadAsync(id);
-            if (dto is null)
+            if (dto == default)
             {
                 return Response<E, D>.NotFound();
             }
@@ -33,6 +33,10 @@ namespace api_base.Handlers
         public virtual async Task<Response<E, D>> HandleAsync()
         {
             var dtos = await service.ReadAsync();
+
+            if (dtos == default || dtos.Length == 0)
+                return Response<E, D>.NoContent();
+
             return Response<E, D>.Success(dtos: dtos);
         }
     }

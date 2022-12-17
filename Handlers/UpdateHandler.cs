@@ -22,10 +22,9 @@ namespace api_base.Handlers
         public virtual async Task<Response<E, D>> HandleAsync(U dto)
         {
             var exists = await service.ExistsAsync(dto.Id);
+
             if (!exists)
-            {
-                return Response<E, D>.BadRequest();
-            }
+                return Response<E, D>.NotFound();
 
             service.Update(dto);
             await service.SaveChangesAsync();
