@@ -2,7 +2,7 @@ using api_base.Data.Dtos;
 using api_base.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api_base.Utils.Models
+namespace api_base.Utils
 {
     public static class Result<E, D>
     where E : Entity
@@ -18,7 +18,7 @@ namespace api_base.Utils.Models
                 StatusCode.Unauthorized => new UnauthorizedObjectResult(response),
                 StatusCode.Forbidden => new ForbidResult(),
                 StatusCode.NotFound => new NotFoundObjectResult(response),
-                _ => new OkObjectResult(response),
+                _ => new BadRequestResult(),
             };
         }
     }
