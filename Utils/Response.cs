@@ -62,5 +62,10 @@ namespace api_base.Utils
         {
             return new Response<E, D>(StatusCode.BadRequest, message ?? ResponseMessage.BadRequest);
         }
+
+        public static Response<E, D> NoContent(string? message = null)
+        {
+            return new Response<E, D>(StatusCode.NoContent, message ?? ResponseMessage.NoContent);
+        }
     }
 }
