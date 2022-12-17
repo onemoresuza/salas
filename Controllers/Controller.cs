@@ -2,7 +2,6 @@ using api_base.Data.Dtos;
 using api_base.Handlers;
 using api_base.Models;
 using api_base.Utils;
-using api_base.Utils.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_base.Controllers
@@ -33,6 +32,8 @@ namespace api_base.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public virtual async Task<ActionResult<R>> Get(int id)
         {
             var response = await readHandler.HandleAsync(id);
@@ -40,6 +41,8 @@ namespace api_base.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(204)]
         public virtual async Task<ActionResult<R>> Get()
         {
             var response = await readHandler.HandleAsync();
@@ -47,6 +50,7 @@ namespace api_base.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(200)]
         public virtual async Task<ActionResult<R>> Insert([FromBody] I dto)
         {
             var response = await createHandler.HandleAsync(dto);
@@ -54,7 +58,8 @@ namespace api_base.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public virtual async Task<ActionResult<R>> Update([FromBody] U dto)
         {
             var response = await updateHandler.HandleAsync(dto);
